@@ -1,0 +1,23 @@
+******************************************Instalação e configuração do postgresql******************************************
+-Para instalar o postgresql no ubuntu, siga a instrução contida no link "https://www.postgresql.org/download/linux/ubuntu/" que será exibida após você selecionar sua distro.
+-No caso do ubuntu 16, criei o arquivo "pgdg.list" em /etc/apt/sources.list.d/ e inseri nele a linha "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main".
+-Após isso, entrei com os seguintes comandos:
+(1) wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+(2) sudo apt-key add -
+(3) sudo apt-get update
+(4) apt-get install postgresql-9.6
+-A instalação do postgress não cria um database nem um usuário de banco de dados. Para isso, é necessário entrar na conta linux do postgres e criar seu usuário com acesso de superusuário. 
+Para isso, entre com os seguintes comandos:
+(1) sudo bash (entra no usuário root)
+(2) su postgres (muda para o usuário postgres)
+(3) psql
+(4) create user SEU_NOME_USUARIO superuser;   (em que SEU_NOME_USUÁRIO é o nome do seu usuário linux)
+(5) \du (este comando só exibe os usuários e suas permissões, para checar se deu tudo certo no passo anterior)
+(6) \q (sai do psql)
+Volte para seu usuário e crie um banco de dados:
+(1) su SEU_USUÁRIO (substitua SEU_USUÁRIO pelo usuário criado com acesso de superuser)
+(2) createdb SEU_BANCO (em que SEU_BANCO é o nome do banco que você está criando)
+Após isso, á é possível acessar o banco com o comando psql.
+
+
+******************************************Instalação do pgadmin**********************************

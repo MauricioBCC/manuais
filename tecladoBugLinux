@@ -1,0 +1,3 @@
+solução: basta entrar com uma única linha de comando "sudo modprobe -r peaq_wmi"
+https://unix.stackexchange.com/questions/395535/autorepeat-does-not-work
+

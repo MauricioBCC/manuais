@@ -1,0 +1,10 @@
+-Seguir o guia de instalação relativo ao seu sistema operacional contido em https://git-scm.com/download/linux. No caso do ubuntu, insira as seguintes linhas de comando para a versão mais recente:
+sudo add-apt-repository ppa:git-core/ppa 
+sudo apt update 
+sudo apt install git
+Para verificar se a instalação está correta, digite "git --version", esta é a saída do meu terminal:
+git version 2.16.2
+-Configurar seu nome e e-mail com:
+git config --global user.name "SEUNOME"  (com aspas)
+git config --global user.email SEUEMAIL  (sem aspas)
+-
