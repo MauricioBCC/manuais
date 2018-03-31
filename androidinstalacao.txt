@@ -1,0 +1,155 @@
+Instalação de sistema operacional para o s3 neo*******************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+
+
+minha versão de celular(base band) do galaxy s3 neo: i9300iububni1
+
+Primeira maneira de instalar o twrp
+- Ative as opções de desenvolvedor no celular android. Após isso, ative a opção que permite a "depuração usb", ou "debug usb", se o celular estiver com idioma em inglês.
+- Baixe e instale o jdk. Link "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html". Descompacte o tar em /opt. No Ubuntu, digite "vim ~/.bashrc", e insira no rodapé do arquivos as linhas:
+
+JAVA_HOME=/opt/jdk1.8.0_162
+PATH=$JAVA_HOME/bin:$PATH
+export JAVA_HOME
+export PATH
+
+Feche o terminal, e execute o java -version. É esperado um output desta maneira:
+
+java version "1.8.0_162"
+Java(TM) SE Runtime Environment (build 1.8.0_162-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.162-b12, mixed mode)
+
+- Instale o android studio. Baixe-o no link https://developer.android.com/studio/index.html. Descompate o conteúdo do diretório em /usr/local. Crie um novo atalho com "sudo ln -s /usr/local/android-studio/bin/studio.sh /usr/bin/studio". Execute o studio digitando "studio" no terminal.
+- Instale o sdk: o sdk pode ser baixado isoladamente, mas já vem incluso no android studio!
+- ADB e fast boot: podem ser baixados isoladamente, mas já estão presentes no android studio! São instalados em ~/Android/Sdk/platform-tools/. Crie um atalho com "sudo ln -s /home/SEUUSUARIO/Android/Sdk/platform-tools/adb /usr/bin/adb" para o adb. Crie um atalho com "sudo ln -s /home/SEUUSUARIO/Android/Sdk/platform-tools/fastboot /usr/bin/fastboot" para o fastboot.
+- Conecte o celular no computador, e digite "adb devices". Se a lista vier vazia, seu celular não foi encontrado. Se seu celular constar com status "device", pule para o próximo passo. Se aárecer"unauthorized", como neste exemplo de output:
+
+mauricio@betelinu:~$ adb devices
+List of devices attached
+64979b6f	unauthorized
+
+faça o seguinte procedimento: entre nas opções de desenvolvedor no celular, e ative a opção "Revoke USB debugging authorization". A seguir, reinicie o servidor adb utilizando os seguintes comandos:
+
+adb kill-server
+adb start-server
+
+Após isso, aparecerá na tela do celular um popup para confirmação de conexão, selecione "sim". O celular agora está conectado ao computador. O output agora estará desta maneira:
+
+mauricio@betelinu:~$ adb devices
+List of devices attached
+64979b6f	device
+
+- Link com o procedimento para instalar o TWRP "https://www.xda-developers.com/how-to-install-twrp/".
+- Instalando o TWRP: insira o comando "adb reboot bootloader". Após iniciar o boot e o celular estiver pronto para recepção, digite "fastboot flash recovery twrp-2.8.x.x-xxx.img" paara instalar o twrp. Desligue o celular e entre no modo recovery da maneira específica do seu dispositivo.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+Segunda Maneira de instalar o twrp
+- Ative as opções de desenvolvedor no celular android. Após isso, ative a opção que permite a "depuração usb", ou "debug usb", se o celular estiver com idioma em inglês.
+- Ative a opção de instalar aplicativos de fonte desconhecidas contida na aba "segurança".
+- Instale o app king's root. REINICIE O CELULAR E INSTALE O APP DA PLAYSTORE "OFICIAL TWRP"; ABRA-o, bAIXE E INSTALE O TWRP REFERENTE AO SEU DISPOSITIVO. Desligue o celular e entre no modo recovery da maneira específica do seu dispositivo.
+- Baixe em "https://twrp.me/Devices/" o TRWP referente ao seu celular. No caso do meu s3, baixei o arquivo "twrp-3.2.1-0-i9300", que era sua versão mais recente.
+- Baixe o seu sistema operacional android que desejar. No caso do meu celular s3 galaxy, escolhi o android marshmallow 6 do temasek, no link "https://androidfilehost.com/?w=files&flid=46002", a versão mais recente era "cm-13.0-20161021-UNOFFICIAL-temasek-i9300-V12.2.zip"
+
+.
+.
+.
+.
+.
+.
+.
+.
+
+
+Terceira maneira de instalar o twrp
+- Para celulares android, baixe o software odin, baixe também o twrp referente ao seu dispositivo, e instale o twrp no celular com o auxílio do odin. Caso tenha problemas no siststema de arquivos, instale o twrp com a opção "Nand erase" do odin, esta opção está na aba options.
+.
+.
+.
+.
+.
+.
+Gapps
+-Baixar no link "http://opengapps.org/". Escolher plataform="ARM", Android="ESCOLHERDESEJADO", e variant="nano".
+
+
+
+
+
+
+
+
+
+
+
+Instalação de sistema operacional para o moto x play**************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+******************************************************************************************
+
+-ativar opções de desenvolvedor
+-ativar usb depuração dentro das opções de desenvolvedor
+-ativar o oem para poder desbloquear o boot loader
+-instalar o fastboot e adb seguindo os passos descritos para o s3 neo
+-seguir o tutorial de https://reformedmusings.wordpress.com/2015/09/26/unlocking-the-moto-x-pure-2015-bootloader-on-linux/
+-baixe o twrp específicio para o moto x play
+-siga a instrução de https://reformedmusings.wordpress.com/2015/09/26/installing-twrp-and-rooting-the-moto-x-pure-2015-in-linux/
+-após a instalação do sistema operacional, instale o magisk https://forum.xda-developers.com/apps/magisk/official-magisk-v7-universal-systemless-t3473445
+-para tirar o aviso que o bootloader está unlocked, dê flash do símbolo de bootloader da motorola, contido no link https://forum.xda-developers.com/moto-x-play/help/warning-bootloader-unlocked-t3683479
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
