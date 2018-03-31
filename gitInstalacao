@@ -10,6 +10,7 @@ git config --global user.email SEUEMAIL  (sem aspas)
 
 
 
+guia de conexão ao github pelo protocolo ssh "https://help.github.com/articles/connecting-to-github-with-ssh/"
 ssh-keygen -t rsa -b 4096 -C "mauriciolacardoso@yahoo.com.br"
 
 eval "$(ssh-agent -s)"      (Inicia o ssh agente em background)

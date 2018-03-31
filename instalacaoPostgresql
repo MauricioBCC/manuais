@@ -21,3 +21,7 @@ Após isso, á é possível acessar o banco com o comando psql.
 
 
 ******************************************Instalação do pgadmin**********************************
+-Para instalar o pgadmin, entre com o comando "sudo apt-get install pgadmin4" e aguarde a instalação. Note que existem várias versões do pgadmin, por exemplo, pgadmin 3.
+-Execute o pgadmin4 com o comando "pgadmin4"
+-Selecione "File -> add server", no campo name defina como "localhost"(sem aspas), e no campo username insira o seu usário.
+
