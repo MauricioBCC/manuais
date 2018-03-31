@@ -7,4 +7,31 @@ git version 2.16.2
 -Configurar seu nome e e-mail com:
 git config --global user.name "SEUNOME"  (com aspas)
 git config --global user.email SEUEMAIL  (sem aspas)
+
+
+
+ssh-keygen -t rsa -b 4096 -C "mauriciolacardoso@yahoo.com.br"
+
+eval "$(ssh-agent -s)"      (Inicia o ssh agente em background)
+ssh-add ~/.ssh/id_rsa       (passa a chave privada para o ssh-agent)
+-Instruções para adicionar a chave pública ao github (arquivo .pub, por exemplo, id_rsa.pub) contidas no link "https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/"
+
+-Necessário para o git guardar o usuário e senha do github para não precisar redigitar a cada push. Entre com o comando:
+(1) git config --global credential.helper cache
+
+ssh -T git@github.com
+Hi MauricioBCC! You've successfully authenticated, but GitHub does not provide shell access.
+
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:MauricioBCC/manuais.git
+git push -u origin master
+
+
+
+ git remote set-url origin git@github.com:MauricioBCC/manuais.git
+
+
+
 -
