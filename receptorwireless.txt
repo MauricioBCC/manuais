@@ -1,0 +1,18 @@
+no windows
+1º) fazer as atualizações do windows
+2º) após atualizar tudo, talveez não seja necessário, baixar os drivers para windows 8.1 (valem para windows 10) e instalar, no próprio site da tp-link, versão 3 (v3)
+
+
+no linux:
+wget https://codeload.github.com/lwfinger/rtl8188eu/zip/master
+unzip master
+cd rtl8188eu-master
+sudo make all
+sudo make install
+
+
+sudo sh -c 'echo blacklist r8169 >> /etc/modprobe.d/blacklist.conf'
+
+se precisar
+
+sudo modprobe r8169

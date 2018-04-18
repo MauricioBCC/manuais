@@ -1,0 +1,21 @@
+-Primeiro, é necessário preparar o ambiente com algumas libs, para isso, baixe-as usando o comando:
+(1)curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+(2)curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+(3)echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+(4)sudo apt-get update
+(5)sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev nodejs yarn
+-Baixe o Ruby no site de referência https://www.ruby-lang.org/en/downloads/. No momento que escrevo o guia, a versão mais recente do Ruby é 2.5.1. 
+É possível também clonar o projeto do Ruby no github no link https://github.com/ruby/ruby
+-Descompacte o arquivo baixado, e acesse seu diretório pelo terminal. No meu caso, o arquivo está na pasta de Downloads, vou acessá-lo usando o comando:
+cd ~/Downloads/ruby-2.5.1
+-Para instalar o Ruby sem especificar nenhuma configuração especial, entre com os comandos:
+(1) sudo ./configure
+(2) sudo make 
+(3) sudo make install
+O Ruby já estará instalado. Todos os exectáveis do ruby estarão em /usr/local/bin!!! Para checar se a versão está correta, entre com o comando:
+(1) ruby -v
+Neste momento, a saída foi:
+mauricio@mauriciolinux:/opt/ruby-2.5.1$ ruby -v
+ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
+-
