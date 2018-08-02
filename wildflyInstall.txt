@@ -1,0 +1,44 @@
+Links de referência
+http://forgezilla.com/installing-wildfly-10-on-debianubuntu/e
+https://blog.michalszalkowski.com/other/vps-debian-8-install-wildfly-9/
+
+
+Instalação do wildfly no debian
+
+-baixar o wildfly
+(1)wget http://download.jboss.org/wildfly/10.1.0.Final/wildfly-9.0.1.Final.zip
+-descompactar em /opt
+(1)unzip wildfly-10.1.0.Final.zip -d /opt/
+-crie um link simbólico que a configuração do wildfly utilizará(e ajudrá em futuras atualizações do wildfly)
+(1)ln -s /opt/wildfly-10.1.0.Final /opt/wildfly
+
+-copiar o arquivo de configurações para o /etc/init.d/default
+(1)cp /opt/wildfly/bin/init.d/wildfly.conf /etc/default/wildfly  (há a possibilidade do nome do arquivo final ser "/etc/default/wildfly.conf" em vez de "wildfly")
+
+-utilize "vim /etc/default/wildfly" para editar o arquivo de configuração, definindo o JAVA_HOME(se já não foi definido antes) e JBOSS_HOME(caso o caminho esteja diferente de /opt/wildfly). Descomente as linhas caso sejam necessárias mudanças.
+
+-copiar o script que inicia o serviço do wildfly para /etc/init.d
+(1)cp /opt/wildfly/bin/init.d/wildfly-init-debian.sh /etc/init.d/wildfly
+
+Adicionar wildfly como serviço	
+(1)chkconfig --add wildfly (utilize com o usuário root, pois somente o path dele possui este comando, talvez seja necessário baixar o chkconfig com o apt-get)
+(2)chkconfig wildfly on
+
+-diretório de logs
+(1)mkdir -p /var/log/wildfly
+
+-adicionar o usuário e grupo do wildfly 
+(1)addgroup wildfly
+(2)useradd -g wildfly wildfly
+
+-mudar as permissões do diretório do wildfly para que o usuário wildfly(e grupo wildfly) tenha permissão de leitura e execução
+(1)chown -R wildfly:wildfly /opt/wildfly-10.1.0.Final
+(2)chown wildfly:wildfly /opt/wildfly
+(3)chown wildfly:wildfly /var/log/wildfly
+(4)chmod -r ug+x /opt/wildfly-10.1.0.Final/bin
+
+-dar permissão para o root de startar o serviço do wildfly
+(1)chown root:root /etc/init.d/wildfly
+(2)chmod ug+x /etc/init.d/wildfly
+
+-para startar o wildfly, utilize  "service wildfly start" ou "/etc/init.d/wildfly start"
