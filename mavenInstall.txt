@@ -1,0 +1,15 @@
+maven install
+-É necessário ter o jdk já instalado e com as variáveis PATH e JAVA_HOME atualizadas.
+
+-baixe o maven, links em "https://maven.apache.org/download.cgi?Preferred=http%3A%2F%2Fftp.unicamp.br%2Fpub%2Fapache%2F".
+(1) wget http://ftp.unicamp.br/pub/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+
+-descompacte o tar.gz do maven e mova o diretório descompactado para /opt
+(1) tar xfzv apache-maven-3.5.4-bin.tar.gz
+(2) sudo mv apache-maven-3.5.4 /opt/
+
+-atualize a variável PATH, e adicione a variável M2_HOME, em /etc/profile(testado no debian e ubuntu)
+(1) sudo echo "M2_HOME=/opt/apache-maven-3.5.4" >> /etc/profile
+(2) sudo echo "PATH=$PATH:$M2_HOME/bin" >> /etc/profile
+(3) sudo echo "export PATH" >> /etc/profile
+(4) sudo echo "export M2_HOME" >> /etc/profile

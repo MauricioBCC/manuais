@@ -1,0 +1,65 @@
+﻿https://pkg.jenkins.io/debian-stable/
+Instalação do jenkins no ubuntu/debian:
+
+-adiciona a chave do repositório
+(1)wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+
+-adiciona o path do repositório
+(1) echo "deb https://pkg.jenkins.io/debian-stable binary/" >> /etc/apt/sources.list
+
+-atualiza o apt-get e instala o jenkins como um serviço já ativo
+(1)sudo apt-get update
+(2)sudo apt-get install jenkins
+
+-para testar o status do serviço jenkins, utilize o comando"service jenkins status".
+Manuais de referência:
+https://www.tutorialspoint.com/jenkins/jenkins_git_setup.htm
+https://dzone.com/articles/extreme-it-automation
+
+-mude a porta para 8081 em vez de 8080 em /etc/default/jenkins. Para a mudança entrar em vigor, utilize o seguinte comando(como root) que reinicia o serviço jenkins:
+(1)service jenkins restart
+-Ainda em /etc/default/jenkins, adicione em JAVA_ARGS A flag -Xmx6000m para permitir que a JVM do jenkins utilize 6000 Mb de ram
+-Acesse o jenkins em 192.168.0.231:8081 (ou substitua o domínio 192.168.0.231 pelo hostname do seu linux, contido em /etc/hostname) e crie um usuário.
+-Desative jnlp3 nas configurações de segurança, por estar deprecated(atualmente o utilizado é jnlp4)
+-No jenkins, é necessário setar manualmente o caminho do diretório do maven nas configurações, para /opt/apache-maven-3.5.4. É exigido um nome, arbitrário.
+-Instale o plugin Maven Integration(necessário para criar projetos jenkins do tipo maven). 
+-O primeiro projeto a ser criado no jenkins é o poc-jar, pois este tem o diretório /home que vai abrigar o config.properties (que deve ser criado).
+-criar o config.properties em /var/lib/jenkins/jobs/poc-jar/workspace/home/
+-alterar o /opt/wildfly/standalone/configuration/standalone.xml, e incluir a conexão ao banco poc e poc2 (mysql)
+- É possível alterar o local onde as builds ficarão localizadas(workspace). Para isso, altere o valor das tags do workspaceDir e buildsDir em /var/lib/jenkins/config.xml. Exemplo: 
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+
+-criar o arquivo arquilian.xml em /var/lib/jenkins/jobs/poc-jar/workspace/jar/src/test/resources e em /var/lib/jenkins/jobs/crm/workspace/src/test/resources
+-após criar o projeto poc-risco, e dar a primeira build a fim de o jenkins baixar o código do repositório, abra o arquivo /var/lib/jenkins/jobs/poc-risco/workspace/risco/src/test/resources/arquillian.xml, e inclua(ou altere) as tags property que contém os atributos jbossHome e modulePath para:
+<property name="jbossHome">/opt/wildfly-8.1.0.Final</property>
+<property name="modulePath">/opt/wildfly-8.1.0.Final/modules</property>
+
+-Para configurar o envio automático de e-mail do jenkins com o smtp do office365, vá em "Gerenciar Jenkins-> Configurar o sistema", e no campo Notificação de E-mail, esclha a opçção "Avançado" e preencha os campos com os seguintes dados:
+Servidor SMTP: smtp.office365.com
+Sufixo padrão para e-mail de usuário: @SEUEMAIL
+Usar autenticação SMTP: ative esta opção
+Nome do Usuário: EMAILDOUSUÁRIO
+Senha: SUASENHA
+Usar SSL: desative esta opção
+Porta SMTP: 587
+Reply-To Address: DIGITEENDERECODESTINO
+Charset: UTF-8
+
+No campo Jenkins Location, defina os segundos valores
+URL do Jenkins: DEFINAURL
+Endereço de e-mail do administrador do sistema: EMAILDOUSUÁRIO
+
+Edite o arquivo de configuração /etc/default/jenkins, adicionando a flag -Dmail.smtp.starttls.enable=true a variável JAVA_ARGS. Ela é necessária pois o smtp do office365 exige encriptação TLS.
+Por fim, logue com o usuário root e utilize o commando "service jenkins restart" para as mudanças entrarem em vigor.
+
+-Para atualizar o path do maven, vá em "Gerenciar Jenkins-> Global Tool Configuration", vá no campo "Maven", selecione "Adicionar Maven" e defina os valores como:
+Nome: NomeDeSuaEscolha
+MAVEN_HOME: /opt/apache-maven-3.5.4
+-Instale os plugins(extensões) do Jenkins plugins JaCoCo e Findbugs em "Gerenciar Jenkins-> Plugins".
+-dar permissão de escrita do diretório do wildfly com  "sudo chmod -R o+w wildfly-8.1.0.Final/"
+-adicione a dependência "primefaces 5.1.3-ur" para o repositório maven do jenkin em /var/lib/jenkins/.m2/org/primefaces
+-No standalone.xml, defina conexão aos bancos, dentro das tags <datasources>:
+
+-Crie os bancos necessários no mysql.
+

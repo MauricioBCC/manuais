@@ -1,0 +1,40 @@
+Guia de instalação oficial do mysql community server:
+https://dev.mysql.com/doc/refman/5.7/en/linux-installation-debian.html
+
+Link para baixar o mysql community server:
+https://dev.mysql.com/downloads/mysql/5.7.html#downloads
+
+Baixe o deb bundle (mysql-server_5.7.23-1debian8_amd64.deb-bundle.tar), que conterá todos os .debs(alguns que não serão utilizados) necessários para a instalação do mysql
+wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-server_5.7.23-1debian8_amd64.deb-bundle.tar
+
+Descompacte o .tar com:
+tar xvf mysql-server_5.7.23-1debian8_amd64.deb-bundle.tar
+
+Instale a libaio1:
+sudo apt-get install libaio1
+
+Pré configure o mysql-community-server:
+sudo dpkg-preconfigure mysql-community-server_*.deb
+
+Instale os pacotes básicos(é possível instalar os outros baixados):
+sudo dpkg -i mysql-{common,community-client,client,community-server,server}_*.deb
+
+Caso o dpkg acuse faltar alguma dependência, baixe-a utilizando:
+sudo apt-get -f install
+
+-Defina a senha do root
+
+-Crie um usuário e banco para o usuário, no exemplo, o banco se chama 'bancoexemplo':
+create database bancoexemplo;      
+create user 'seuusuario'@'localhost' identified by 'senha';
+grant all on bancoexemplo.* to 'seuusuario' identified by 'senha';
+
+-Para permitir a conexão ao banco do crm por uma aplicação de fora do servidor(necessário para utilizar o heidisql), abra o arquivo /etc/mysql/mysql.conf.d/mysqld.cnf 
+e altera a linha "bind-address   = 127.0.0.1" para:
+#bind-address   = 127.0.0.1
+Salve o arquivo e reinicie o servidor(com o usuário root) utilizando o comando:
+(1) service mysql restart
+Com a nova configuração alterada, é necessário dar permissão de conexão externa para cada usuário desejado. Para isso, entre com o comando "mysql -u root -p" para logar como root, e insira os seguintes comandos no banco
+(1) GRANT ALL PRIVILEGES ON *.* TO 'NOMEUSUARIO'@'%' IDENTIFIED BY 'SENHADOUSUARIO' WITH GRANT OPTION;
+(2) FLUSH PRIVILEGES;
+É possível verificar o resultado dos dois comandos acima utilizando "SELECT * from information_schema.user_privileges"
