@@ -38,3 +38,11 @@ Com a nova configuração alterada, é necessário dar permissão de conexão ex
 (1) GRANT ALL PRIVILEGES ON *.* TO 'NOMEUSUARIO'@'%' IDENTIFIED BY 'SENHADOUSUARIO' WITH GRANT OPTION;
 (2) FLUSH PRIVILEGES;
 É possível verificar o resultado dos dois comandos acima utilizando "SELECT * from information_schema.user_privileges"
+
+TURBINANDO O MYSQL
+É possível atribuir mais memória para o serviço do mysql. Para isso, precisaremos editar o arquivo /etc/mysql/my.cnf(é um link simbólico para um arquivo em outro diretório). Abra-o utilizando o comando "sudo vim /etc/mysql/my.cnf", delete todo seu conteúdo e inclua as seguintes linhas:
+[mysqld]
+innodb_buffer_pool_size = 1024M
+innodb_log_buffer_size = 256M
+innodb_log_file_size = 1024M
+Após a edição do arquivo, pare o serviço do mysql com "sudo service mysql stop" e inice-o com "sudo service mysql start". É possivel verificar se a mudança surtiu efeito logando no mysql com "mysql -u root -p", e usando o comando "SHOW VARIABLES LIKE 'innodb_buffer_pool_size';". Se a resposta for innodb_buffer_pool_size possui 1073741824 bytes = 1024 MB, a mudança surtiu efeito.
