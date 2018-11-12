@@ -29,10 +29,10 @@ create database bancoexemplo;
 create user 'seuusuario'@'localhost' identified by 'senha';
 grant all on bancoexemplo.* to 'seuusuario' identified by 'senha';
 
--Para permitir a conexão ao banco do crm por uma aplicação de fora do servidor(necessário para utilizar o heidisql), abra o arquivo /etc/mysql/mysql.conf.d/mysqld.cnf 
+-Para permitir a conexão ao banco por uma aplicação de fora do servidor(como o heidisql ou dbeaver), abra o arquivo /etc/mysql/mysql.conf.d/mysqld.cnf 
 e altera a linha "bind-address   = 127.0.0.1" para:
 #bind-address   = 127.0.0.1
-Salve o arquivo e reinicie o servidor(com o usuário root) utilizando o comando:
+Salve o arquivo e reinicie o serviço(com o usuário root) utilizando o comando:
 (1) service mysql restart
 Com a nova configuração alterada, é necessário dar permissão de conexão externa para cada usuário desejado. Para isso, entre com o comando "mysql -u root -p" para logar como root, e insira os seguintes comandos no banco
 (1) GRANT ALL PRIVILEGES ON *.* TO 'NOMEUSUARIO'@'%' IDENTIFIED BY 'SENHADOUSUARIO' WITH GRANT OPTION;
